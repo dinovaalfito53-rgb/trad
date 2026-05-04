@@ -1,0 +1,21 @@
+{
+  "name": "FinTracker - Personal Finance",
+  "short_name": "FinTracker",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0c0c18",
+  "theme_color": "#0c0c18",
+  "description": "Personal Financial Tracker, DCA Planner & Trading Journal",
+  "icons": [
+    {
+      "src": "https://via.placeholder.com/192x192.png?text=FT",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://via.placeholder.com/512x512.png?text=FT",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
