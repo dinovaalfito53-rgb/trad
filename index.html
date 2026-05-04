@@ -133,6 +133,7 @@
         .table-card{
             background:var(--bg-card); border-radius:var(--radius-lg); padding:16px 20px;
             border:1px solid var(--border-subtle); box-shadow:var(--shadow-card); overflow:hidden;
+            margin-bottom:20px;
         }
         .table-wrapper{ overflow-x:auto; }
         table{ width:100%; border-collapse:collapse; min-width:600px; font-size:0.85rem; }
@@ -197,8 +198,6 @@
                     <div class="card-sub" id="plSub">From closed trades</div>
                 </div>
             </div>
-
-            <!-- DUA CHART BARU -->
             <div class="charts-grid">
                 <div class="chart-card">
                     <h3>📊 Monthly DCA Pipeline (Target Rp 100.000)</h3>
@@ -209,8 +208,6 @@
                     <canvas id="winlossQuarterChart"></canvas>
                 </div>
             </div>
-
-            <!-- Progress bar DCA tetap -->
             <div class="dca-progress-card">
                 <h3>🎯 Monthly DCA Target: Rp 100.000</h3>
                 <div class="progress-info">
@@ -224,14 +221,98 @@
             </div>
         </section>
 
-        <!-- TAB: FINANCE & DCA (sama seperti sebelumnya) -->
+        <!-- TAB: FINANCE & DCA -->
         <section class="tab-content" id="tab-finance">
-            <!-- ... form income/expense & DCA entry ... -->
+            <div class="form-card">
+                <h3>➕ Add Income / Expense (IDR)</h3>
+                <div class="form-row">
+                    <div class="form-group"><label>Type</label>
+                        <select id="txnType"><option value="income">Income</option><option value="expense">Expense</option></select>
+                    </div>
+                    <div class="form-group"><label>Amount (Rp)</label>
+                        <input type="number" id="txnAmount" placeholder="0" step="1" min="1">
+                    </div>
+                    <div class="form-group"><label>Category</label>
+                        <select id="txnCategory">
+                            <option value="Salary">Salary</option><option value="Food">Food</option><option value="Transport">Transport</option>
+                            <option value="Utilities">Utilities</option><option value="Entertainment">Entertainment</option>
+                            <option value="Shopping">Shopping</option><option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group"><label>Date</label><input type="date" id="txnDate"></div>
+                </div>
+                <button class="btn btn-primary" id="btnAddTxn">💾 Add Transaction</button>
+            </div>
+
+            <div class="form-card">
+                <h3>📥 DCA Entry – Log Your Buy (IDR)</h3>
+                <div class="form-row">
+                    <div class="form-group"><label>Price per Unit (Rp)</label><input type="number" id="dcaPrice" placeholder="e.g. 50000" step="1" min="1"></div>
+                    <div class="form-group"><label>Amount (Units)</label><input type="number" id="dcaAmount" placeholder="e.g. 2" step="0.0001" min="0.0001"></div>
+                    <div class="form-group"><label>Date</label><input type="date" id="dcaDate"></div>
+                </div>
+                <button class="btn btn-primary" id="btnAddDCA">📥 Log DCA Entry</button>
+                <div style="background:var(--bg-input); border-radius:var(--radius); padding:12px 16px; margin-top:10px; display:flex; flex-wrap:wrap; gap:12px; justify-content:space-between;">
+                    <div><span style="font-size:0.7rem; color:var(--text-muted);">Running Avg Price</span><br><span id="avgPriceDisplay" style="font-weight:700;">Rp 0</span></div>
+                    <div><span style="font-size:0.7rem; color:var(--text-muted);">Total Units</span><br><span id="totalUnitsDisplay" style="font-weight:700;">0</span></div>
+                    <div><span style="font-size:0.7rem; color:var(--text-muted);">Total Invested</span><br><span id="totalInvestedDisplay" style="font-weight:700;">Rp 0</span></div>
+                </div>
+            </div>
+
+            <!-- DCA History Table + Delete -->
+            <div class="table-card">
+                <h3>📋 DCA History</h3>
+                <div class="table-wrapper">
+                    <table>
+                        <thead><tr><th>Date</th><th>Price/Unit (Rp)</th><th>Units</th><th>Total (Rp)</th><th>Action</th></tr></thead>
+                        <tbody id="dcaTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="table-card">
+                <h3>📝 Transaction History</h3>
+                <div class="table-wrapper">
+                    <table>
+                        <thead><tr><th>Date</th><th>Type</th><th>Category</th><th>Amount (Rp)</th><th>Action</th></tr></thead>
+                        <tbody id="txnTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
         </section>
 
-        <!-- TAB: TRADING JOURNAL (sama) -->
+        <!-- TAB: TRADING JOURNAL -->
         <section class="tab-content" id="tab-trading">
-            <!-- ... form trade & stats ... -->
+            <div class="form-card">
+                <h3>📋 Log a Trade (USD)</h3>
+                <div class="form-row">
+                    <div class="form-group"><label>Pair / Asset</label><input type="text" id="tradePair" placeholder="e.g. BTC/USD"></div>
+                    <div class="form-group"><label>Type</label>
+                        <select id="tradeType"><option value="buy">Buy (Long)</option><option value="sell">Sell (Short)</option></select>
+                    </div>
+                    <div class="form-group"><label>Entry Price ($)</label><input type="number" id="tradeEntry" placeholder="0.00" step="0.01" min="0.01"></div>
+                    <div class="form-group"><label>Exit Price ($)</label><input type="number" id="tradeExit" placeholder="0.00" step="0.01" min="0.01"></div>
+                    <div class="form-group"><label>Lot / Quantity</label><input type="number" id="tradeLot" placeholder="1" step="0.01" min="0.01" value="1"></div>
+                    <div class="form-group"><label>Date</label><input type="date" id="tradeDate"></div>
+                </div>
+                <div class="form-group" style="margin-bottom:12px;"><label>Notes / Psychology</label><textarea id="tradeNotes" placeholder="How did this trade feel?"></textarea></div>
+                <button class="btn btn-primary" id="btnAddTrade">📝 Log Trade</button>
+            </div>
+            <div class="stats-row">
+                <div class="stat-card"><div class="stat-value" id="statTotalTrades">0</div><div class="stat-label">Total Trades</div></div>
+                <div class="stat-card"><div class="stat-value" id="statWinRate">0%</div><div class="stat-label">Win Rate</div></div>
+                <div class="stat-card"><div class="stat-value" id="statRR">N/A</div><div class="stat-label">Risk/Reward</div></div>
+                <div class="stat-card"><div class="stat-value text-profit" id="statTotalPL">$0.00</div><div class="stat-label">Total P/L</div></div>
+            </div>
+            <div class="table-card">
+                <h3>📜 Trade History</h3>
+                <div class="table-wrapper">
+                    <table>
+                        <thead><tr><th>Date</th><th>Pair</th><th>Type</th><th>Entry ($)</th><th>Exit ($)</th><th>Lot</th><th>P/L ($)</th><th>Result</th><th>Notes</th><th>Action</th></tr></thead>
+                        <tbody id="tradeTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
         </section>
     </div>
 
@@ -241,10 +322,8 @@
             const formatIDR = (v) => (v<0?'-Rp ':'Rp ') + Math.abs(v).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g,'.');
             const formatUSD = (v) => (v<0?'-$':'$') + Math.abs(v).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
 
-            // Storage
-            const STORE = {
-                tx: 'fin_tx', dca: 'fin_dca', trade: 'fin_trade'
-            };
+            // Storage keys
+            const STORE = { tx: 'fin_tx', dca: 'fin_dca', trade: 'fin_trade' };
             const load = k => { try{ return JSON.parse(localStorage.getItem(k))||[] } catch{ return [] } };
             const save = (k,d) => localStorage.setItem(k,JSON.stringify(d));
             const getTx = () => load(STORE.tx);
@@ -254,6 +333,7 @@
             const addDca = (d) => { const l=getDca(); l.push(d); save(STORE.dca,l); };
             const addTrade = (t) => { const l=getTrades(); l.push(t); save(STORE.trade,l); };
             const delTx = (id) => save(STORE.tx, getTx().filter(t=>t.id!==id));
+            const delDca = (id) => save(STORE.dca, getDca().filter(d=>d.id!==id));
             const delTrade = (id) => save(STORE.trade, getTrades().filter(t=>t.id!==id));
             const uid = () => Date.now()+Math.random().toString(36).slice(2,8);
             const isCurrentMonth = (d) => { if(!d) return false; const dt=new Date(d+'T00:00:00'), n=new Date(); return dt.getFullYear()===n.getFullYear() && dt.getMonth()===n.getMonth(); };
@@ -295,7 +375,7 @@
                 if(!canvas) return;
                 const year = new Date().getFullYear();
                 const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-                const targets = months.map(() => 100000); // target 100k per bulan
+                const targets = months.map(() => 100000);
                 const actuals = months.map((_,i) => {
                     const m = String(i+1).padStart(2,'0');
                     return getDca().filter(e => e.date && e.date.startsWith(`${year}-${m}`))
@@ -322,10 +402,7 @@
                             y: { beginAtZero: true, max: 110, ticks: { callback: v=>v+'%', color:'#a8a8c0' }, grid:{color:'rgba(42,42,72,0.4)'} },
                             x: { ticks:{color:'#a8a8c0'}, grid:{display:false} }
                         },
-                        plugins: {
-                            legend:{display:false},
-                            tooltip:{callbacks:{label: c=>`${c.raw.toFixed(1)}%`}}
-                        }
+                        plugins: { legend:{display:false}, tooltip:{callbacks:{label: c=>`${c.raw.toFixed(1)}%`}} }
                     }
                 });
             }
@@ -335,13 +412,12 @@
                 const canvas = document.getElementById('winlossQuarterChart');
                 if(!canvas) return;
                 const year = new Date().getFullYear();
-                const quarters = [0,0,0,0]; // Q1..Q4 total P/L
+                const quarters = [0,0,0,0];
                 getTrades().forEach(t => {
                     if(!t.date) return;
                     const d = new Date(t.date+'T00:00:00');
                     if(d.getFullYear() !== year) return;
-                    const m = d.getMonth();
-                    const q = Math.floor(m/3); // 0..3
+                    const q = Math.floor(d.getMonth()/3);
                     quarters[q] += tradePL(t);
                 });
                 const labels = ['Q1','Q2','Q3','Q4'];
@@ -374,8 +450,7 @@
                 document.getElementById('totalExpenses').textContent = formatIDR(totalExpenses());
                 const tpl = totalTradePL();
                 document.getElementById('tradingPL').textContent = formatUSD(tpl);
-                const plCard = document.getElementById('plCard');
-                plCard.classList.toggle('negative', tpl<0);
+                document.getElementById('plCard').classList.toggle('negative', tpl<0);
                 const mdca = monthlyDcaTotal();
                 const target = 100000;
                 const pct = Math.min((mdca/target)*100, 100);
@@ -387,7 +462,9 @@
                 updateDcaPipelineChart();
                 updateWinlossQuarterChart();
             }
+
             function refreshFinanceTab() {
+                // Transaction table
                 const txns = getTx();
                 const tbody = document.getElementById('txnTableBody');
                 if(!txns.length) {
@@ -400,11 +477,33 @@
                         return `<tr><td>${t.date||''}</td><td>${tag}</td><td>${t.category||''}</td><td class="${amt>=0?'text-profit':'text-loss'}">${formatIDR(amt)}</td><td><button class="btn btn-danger btn-sm" onclick="window._delTx('${t.id}')">✕</button></td></tr>`;
                     }).join('');
                 }
+
+                // DCA table
+                const dcaList = getDca();
+                const dcaTbody = document.getElementById('dcaTableBody');
+                if(!dcaList.length) {
+                    dcaTbody.innerHTML = '<tr><td colspan="5">No DCA entries</td></tr>';
+                } else {
+                    const sortedDca = [...dcaList].sort((a,b)=>new Date(b.date)-new Date(a.date));
+                    dcaTbody.innerHTML = sortedDca.map(d=>{
+                        const total = (+d.price)*(+d.amount);
+                        return `<tr>
+                            <td>${d.date||''}</td>
+                            <td>${formatIDR(+d.price)}</td>
+                            <td>${(+d.amount).toFixed(4)}</td>
+                            <td>${formatIDR(total)}</td>
+                            <td><button class="btn btn-danger btn-sm" onclick="window._delDca('${d.id}')">✕</button></td>
+                        </tr>`;
+                    }).join('');
+                }
+
+                // DCA highlight
                 const ds = dcaStats();
                 document.getElementById('avgPriceDisplay').textContent = formatIDR(ds.avg);
                 document.getElementById('totalUnitsDisplay').textContent = ds.units.toFixed(4);
                 document.getElementById('totalInvestedDisplay').textContent = formatIDR(ds.invested);
             }
+
             function refreshTradingTab() {
                 const trades = getTrades();
                 const tbody = document.getElementById('tradeTableBody');
@@ -432,10 +531,13 @@
                 document.getElementById('statRR').textContent = rr!==null ? rr.toFixed(2) : 'N/A';
                 document.getElementById('statTotalPL').textContent = formatUSD(totalTradePL());
             }
+
             function refreshAll() { refreshDashboard(); refreshFinanceTab(); refreshTradingTab(); }
 
-            window._delTx = (id) => { if(confirm('Delete?')){ delTx(id); refreshAll(); } };
-            window._delTrade = (id) => { if(confirm('Delete?')){ delTrade(id); refreshAll(); } };
+            // Delete handlers (global)
+            window._delTx = (id) => { if(confirm('Delete transaction?')){ delTx(id); refreshAll(); } };
+            window._delDca = (id) => { if(confirm('Delete DCA entry?')){ delDca(id); refreshAll(); } };
+            window._delTrade = (id) => { if(confirm('Delete trade?')){ delTrade(id); refreshAll(); } };
 
             // Tabs & forms
             function setupTabs() {
@@ -498,7 +600,6 @@
             setupTabs();
             setupForms();
             refreshAll();
-            // Pastikan chart muncul setelah DOM siap
             window.addEventListener('load', ()=>{ refreshDashboard(); });
         })();
     </script>
