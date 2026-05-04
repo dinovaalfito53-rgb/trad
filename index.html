@@ -4,13 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FinTracker – Make Your Life Better</title>
-    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
-    <!-- Manifest PWA -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0c0c18">
     <style>
-        /* ... style sama persis seperti sebelumnya ... */
         :root {
             --bg-primary: #0c0c18;
             --bg-secondary: #13132b;
@@ -39,16 +36,8 @@
             --font-mono: 'SF Mono', 'Cascadia Code', 'Consolas', 'Monaco', monospace;
             --font-sans: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        html {
-            font-size: 16px;
-            scroll-behavior: smooth;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { font-size: 16px; scroll-behavior: smooth; }
         body {
             font-family: var(--font-sans);
             background: var(--bg-primary);
@@ -56,113 +45,9 @@
             min-height: 100vh;
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
-            background-image:
-                radial-gradient(ellipse at 20% 10%, rgba(124, 92, 252, 0.06) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 90%, rgba(0, 230, 118, 0.04) 0%, transparent 60%);
+            background-image: radial-gradient(ellipse at 20% 10%, rgba(124, 92, 252, 0.06) 0%, transparent 60%),
+                              radial-gradient(ellipse at 80% 90%, rgba(0, 230, 118, 0.04) 0%, transparent 60%);
         }
-
-        /* ========== LANDING PAGE ========== */
-        #landingPage {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 32px;
-            text-align: center;
-            background: radial-gradient(ellipse at 50% 20%, rgba(124, 92, 252, 0.15) 0%, transparent 60%);
-        }
-        .landing-logo {
-            font-size: 3rem;
-            margin-bottom: 16px;
-        }
-        .landing-title {
-            font-size: 2.2rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            margin-bottom: 8px;
-        }
-        .landing-subtitle {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            margin-bottom: 24px;
-            font-weight: 400;
-        }
-        .manifesto {
-            max-width: 600px;
-            margin: 0 auto 32px;
-            background: var(--bg-card);
-            border-radius: var(--radius-lg);
-            padding: 24px 28px;
-            border: 1px solid var(--border-subtle);
-            box-shadow: var(--shadow-card);
-            text-align: left;
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            line-height: 1.7;
-        }
-        .manifesto strong {
-            color: #fff;
-            display: block;
-            margin-bottom: 8px;
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .quote-box {
-            max-width: 600px;
-            margin: 0 auto 32px;
-            background: var(--bg-card);
-            border-radius: var(--radius-lg);
-            padding: 24px 28px;
-            border-left: 4px solid var(--accent);
-            box-shadow: var(--shadow-card);
-            font-style: italic;
-            color: var(--text-primary);
-            font-size: 1.05rem;
-            line-height: 1.6;
-        }
-        .quote-author {
-            margin-top: 12px;
-            font-style: normal;
-            font-weight: 600;
-            color: var(--accent);
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* Tombol masuk */
-        .btn-enter {
-            margin-top: 8px;
-            padding: 14px 40px;
-            font-size: 1rem;
-            font-weight: 600;
-            border-radius: 40px;
-            background: var(--accent);
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 20px var(--accent-glow);
-            transition: var(--transition);
-        }
-        .btn-enter:hover {
-            background: #8b6ffc;
-            box-shadow: 0 6px 28px var(--accent-glow);
-            transform: translateY(-1px);
-        }
-
-        /* ========== MAIN APP ========== */
-        #mainApp {
-            display: none;
-            max-width: 1300px;
-            margin: 0 auto;
-            padding: 16px 20px 40px;
-        }
-        #mainApp.visible {
-            display: block;
-        }
-
         .app-container { max-width:1300px; margin:0 auto; padding:16px 20px 40px; }
         .app-header{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; padding:20px 24px; margin-bottom:20px; background:var(--bg-card); border-radius:var(--radius-xl); border:1px solid var(--border-subtle); box-shadow:var(--shadow-card); position:sticky; top:12px; z-index:100; backdrop-filter:blur(12px); }
         .app-logo{ display:flex; align-items:center; gap:12px; }
@@ -225,40 +110,414 @@
     </style>
 </head>
 <body>
-    <!-- ========== LANDING PAGE ========== -->
-    <div id="landingPage">
-        <div class="landing-logo">📊</div>
-        <h1 class="landing-title">FinTracker</h1>
-        <p class="landing-subtitle">Make Your Life Better</p>
-        <div class="manifesto">
-            <strong>📜 Manifesto</strong>
-            Track every rupiah. Master your cash flow. Invest with discipline. Journal your trades. The path to financial freedom is paved with small, consistent actions.
-        </div>
-        <div class="quote-box" id="quoteDisplay">
-            <div class="quote-text">"Do not save what is left after spending, but spend what is left after saving."</div>
-            <div class="quote-author" id="quoteAuthor">Warren Buffett</div>
-        </div>
-        <button id="btnEnter" class="btn-enter">🚀 Masuk ke Aplikasi</button>
-    </div>
+    <!-- MAIN APPLICATION (langsung dashboard) -->
+    <div id="mainApp" class="visible" style="display:block;">
+        <header class="app-header">
+            <div class="app-logo">
+                <div class="logo-icon">📊</div>
+                <h1>Fin<span>Tracker</span></h1>
+            </div>
+            <nav class="tab-nav" id="tabNav">
+                <button class="tab-btn active" data-tab="dashboard">📈 Dashboard</button>
+                <button class="tab-btn" data-tab="finance">💰 Finance & DCA</button>
+                <button class="tab-btn" data-tab="trading">📋 Trading Journal</button>
+            </nav>
+        </header>
 
-    <!-- ========== MAIN APPLICATION (sama seperti sebelumnya) ========== -->
-    <div id="mainApp">
-        <!-- ... header, tabs, dashboard, finance, trading ... persis sama dengan kode sebelumnya -->
-        <!-- Karena keterbatasan ruang, saya tidak mengulang seluruh isi di sini, tapi Anda bisa pakai kode yang sudah ada. -->
+        <!-- TAB: DASHBOARD -->
+        <section class="tab-content active" id="tab-dashboard">
+            <div class="summary-grid">
+                <div class="summary-card card-balance">
+                    <div class="card-label">Total Balance (IDR)</div>
+                    <div class="card-value" id="totalBalance">Rp 0</div>
+                    <div class="card-sub">Income – Expenses</div>
+                </div>
+                <div class="summary-card card-expense">
+                    <div class="card-label">Total Expenses (IDR)</div>
+                    <div class="card-value" id="totalExpenses">Rp 0</div>
+                    <div class="card-sub">All‑time expenses</div>
+                </div>
+                <div class="summary-card card-pl" id="plCard">
+                    <div class="card-label">Trading P/L (USD)</div>
+                    <div class="card-value" id="tradingPL">$0.00</div>
+                    <div class="card-sub" id="plSub">From closed trades</div>
+                </div>
+            </div>
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h3>📊 Monthly Expense Breakdown</h3>
+                    <canvas id="pieChart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>📈 Equity Curve (Trading)</h3>
+                    <canvas id="lineChart"></canvas>
+                </div>
+            </div>
+            <div class="dca-progress-card">
+                <h3>🎯 Monthly DCA Target: Rp 100.000</h3>
+                <div class="progress-info">
+                    <span class="current" id="dcaCurrent">Rp 0</span>
+                    <span class="target">Target: Rp 100.000</span>
+                </div>
+                <div class="progress-bar-outer">
+                    <div class="progress-bar-inner" id="dcaProgressBar" style="width:0%"></div>
+                </div>
+                <div class="progress-percent" id="dcaPercent">0% Complete</div>
+            </div>
+        </section>
+
+        <!-- TAB: FINANCE & DCA -->
+        <section class="tab-content" id="tab-finance">
+            <div class="form-card">
+                <h3>➕ Add Income / Expense (IDR)</h3>
+                <div class="form-row">
+                    <div class="form-group"><label>Type</label><select id="txnType"><option value="income">Income</option><option value="expense">Expense</option></select></div>
+                    <div class="form-group"><label>Amount (Rp)</label><input type="number" id="txnAmount" placeholder="0" step="1" min="1"></div>
+                    <div class="form-group"><label>Category</label><select id="txnCategory"><option value="Salary">Salary</option><option value="Food">Food</option><option value="Transport">Transport</option><option value="Utilities">Utilities</option><option value="Entertainment">Entertainment</option><option value="Shopping">Shopping</option><option value="Other">Other</option></select></div>
+                    <div class="form-group"><label>Date</label><input type="date" id="txnDate"></div>
+                </div>
+                <button class="btn btn-primary" id="btnAddTxn">💾 Add Transaction</button>
+            </div>
+
+            <div class="form-card">
+                <h3>📥 DCA Entry – Log Your Buy (IDR)</h3>
+                <div class="form-row">
+                    <div class="form-group"><label>Price per Unit (Rp)</label><input type="number" id="dcaPrice" placeholder="e.g. 50000" step="1" min="1"></div>
+                    <div class="form-group"><label>Amount (Units)</label><input type="number" id="dcaAmount" placeholder="e.g. 2" step="0.0001" min="0.0001"></div>
+                    <div class="form-group"><label>Date</label><input type="date" id="dcaDate"></div>
+                </div>
+                <button class="btn btn-primary" id="btnAddDCA">📥 Log DCA Entry</button>
+                <div style="background:var(--bg-input); border-radius:var(--radius); padding:12px 16px; margin-top:10px; display:flex; flex-wrap:wrap; gap:12px; justify-content:space-between;">
+                    <div><span style="font-size:0.7rem; color:var(--text-muted);">Running Avg Price</span><br><span id="avgPriceDisplay" style="font-weight:700;">Rp 0</span></div>
+                    <div><span style="font-size:0.7rem; color:var(--text-muted);">Total Units</span><br><span id="totalUnitsDisplay" style="font-weight:700;">0</span></div>
+                    <div><span style="font-size:0.7rem; color:var(--text-muted);">Total Invested</span><br><span id="totalInvestedDisplay" style="font-weight:700;">Rp 0</span></div>
+                </div>
+            </div>
+
+            <div class="table-card">
+                <h3>📝 Transaction History</h3>
+                <div class="table-wrapper">
+                    <table>
+                        <thead><tr><th>Date</th><th>Type</th><th>Category</th><th>Amount (Rp)</th><th>Action</th></tr></thead>
+                        <tbody id="txnTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB: TRADING JOURNAL -->
+        <section class="tab-content" id="tab-trading">
+            <div class="form-card">
+                <h3>📋 Log a Trade (USD)</h3>
+                <div class="form-row">
+                    <div class="form-group"><label>Pair / Asset</label><input type="text" id="tradePair" placeholder="e.g. BTC/USD"></div>
+                    <div class="form-group"><label>Type</label><select id="tradeType"><option value="buy">Buy (Long)</option><option value="sell">Sell (Short)</option></select></div>
+                    <div class="form-group"><label>Entry Price ($)</label><input type="number" id="tradeEntry" placeholder="0.00" step="0.01" min="0.01"></div>
+                    <div class="form-group"><label>Exit Price ($)</label><input type="number" id="tradeExit" placeholder="0.00" step="0.01" min="0.01"></div>
+                    <div class="form-group"><label>Lot / Quantity</label><input type="number" id="tradeLot" placeholder="1" step="0.01" min="0.01" value="1"></div>
+                    <div class="form-group"><label>Date</label><input type="date" id="tradeDate"></div>
+                </div>
+                <div class="form-group"><label>Notes / Psychology</label><textarea id="tradeNotes" placeholder="How did this trade feel?"></textarea></div>
+                <button class="btn btn-primary" id="btnAddTrade">📝 Log Trade</button>
+            </div>
+
+            <div class="stats-row">
+                <div class="stat-card"><div class="stat-value" id="statTotalTrades">0</div><div class="stat-label">Total Trades</div></div>
+                <div class="stat-card"><div class="stat-value" id="statWinRate">0%</div><div class="stat-label">Win Rate</div></div>
+                <div class="stat-card"><div class="stat-value" id="statRR">N/A</div><div class="stat-label">Risk/Reward</div></div>
+                <div class="stat-card"><div class="stat-value text-profit" id="statTotalPL">$0.00</div><div class="stat-label">Total P/L</div></div>
+            </div>
+
+            <div class="table-card">
+                <h3>📜 Trade History</h3>
+                <div class="table-wrapper">
+                    <table>
+                        <thead><tr><th>Date</th><th>Pair</th><th>Type</th><th>Entry ($)</th><th>Exit ($)</th><th>Lot</th><th>P/L ($)</th><th>Result</th><th>Notes</th><th>Action</th></tr></thead>
+                        <tbody id="tradeTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
     </div>
 
     <script>
-        // PWA: Register service worker
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js').catch(console.error);
-        }
+        (function() {
+            // ========== CURRENCY HELPERS ==========
+            function formatIDR(amount) {
+                const num = Math.abs(amount);
+                const parts = num.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+                return (amount < 0 ? '-Rp ' : 'Rp ') + parts;
+            }
+            function formatUSD(amount) {
+                const abs = Math.abs(amount);
+                const formatted = abs.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                return (amount < 0 ? '-$' : '$') + formatted;
+            }
 
-        // ... seluruh JavaScript tracker (sama dengan kode sebelumnya) ...
-        // (termasuk logika showDashboard, showLanding, semua fungsi storage, chart, dll.)
-        // Pastikan tombol #btnEnter memanggil showDashboard()
-        document.getElementById('btnEnter').addEventListener('click', showDashboard);
+            // ========== LOCAL STORAGE ==========
+            const STORAGE_KEYS = {
+                transactions: 'fin_tracker_transactions',
+                dcaEntries: 'fin_tracker_dca',
+                trades: 'fin_tracker_trades'
+            };
+            function loadData(key) { try { return JSON.parse(localStorage.getItem(key)) || []; } catch { return []; } }
+            function saveData(key, data) { localStorage.setItem(key, JSON.stringify(data)); }
+            function getTransactions() { return loadData(STORAGE_KEYS.transactions); }
+            function getDcaEntries() { return loadData(STORAGE_KEYS.dcaEntries); }
+            function getTrades() { return loadData(STORAGE_KEYS.trades); }
+            function addTransaction(txn) { const list = getTransactions(); list.push(txn); saveData(STORAGE_KEYS.transactions, list); }
+            function addDcaEntry(entry) { const list = getDcaEntries(); list.push(entry); saveData(STORAGE_KEYS.dcaEntries, list); }
+            function addTrade(trade) { const list = getTrades(); list.push(trade); saveData(STORAGE_KEYS.trades, list); }
+            function deleteTransaction(id) { saveData(STORAGE_KEYS.transactions, getTransactions().filter(t => t.id !== id)); }
+            function deleteTrade(id) { saveData(STORAGE_KEYS.trades, getTrades().filter(t => t.id !== id)); }
+            function generateId() { return Date.now() + Math.random().toString(36).slice(2, 8); }
+            function isCurrentMonth(dateStr) {
+                if (!dateStr) return false;
+                const d = new Date(dateStr + 'T00:00:00');
+                const now = new Date();
+                return d.getFullYear() === now.getFullYear() && d.getMonth() === now.getMonth();
+            }
 
-        // ... lanjutan skrip ...
+            // ========== CALCULATIONS ==========
+            function calcTotalIncome(txns) { return txns.filter(t => t.type === 'income').reduce((s, t) => s + Number(t.amount || 0), 0); }
+            function calcTotalExpenses(txns) { return txns.filter(t => t.type === 'expense').reduce((s, t) => s + Number(t.amount || 0), 0); }
+            function calcTradePL(trade) {
+                const entry = parseFloat(trade.entryPrice || 0);
+                const exit = parseFloat(trade.exitPrice || 0);
+                const lot = parseFloat(trade.lot || 0);
+                return trade.type === 'buy' ? (exit - entry) * lot : (entry - exit) * lot;
+            }
+            function calcTotalTradingPL(trades) { return trades.reduce((s, t) => s + calcTradePL(t), 0); }
+            function calcWinRate(trades) {
+                if (trades.length === 0) return 0;
+                return Math.round((trades.filter(t => calcTradePL(t) > 0).length / trades.length) * 100);
+            }
+            function calcRiskReward(trades) {
+                const winners = trades.filter(t => calcTradePL(t) > 0);
+                const losers = trades.filter(t => calcTradePL(t) < 0);
+                if (winners.length === 0 || losers.length === 0) return null;
+                const avgWin = winners.reduce((s, t) => s + calcTradePL(t), 0) / winners.length;
+                const avgLoss = Math.abs(losers.reduce((s, t) => s + calcTradePL(t), 0) / losers.length);
+                return avgLoss === 0 ? null : avgWin / avgLoss;
+            }
+            function calcDcaStats(entries) {
+                let totalUnits = 0, totalInvested = 0;
+                entries.forEach(e => {
+                    const price = parseFloat(e.price || 0);
+                    const amount = parseFloat(e.amount || 0);
+                    totalUnits += amount;
+                    totalInvested += price * amount;
+                });
+                const avgPrice = totalUnits > 0 ? totalInvested / totalUnits : 0;
+                return { totalUnits, totalInvested, avgPrice };
+            }
+            function calcMonthlyDcaTotal(entries) {
+                return entries.filter(e => isCurrentMonth(e.date)).reduce((s, e) => s + (parseFloat(e.price || 0) * parseFloat(e.amount || 0)), 0);
+            }
+
+            // ========== CHARTS ==========
+            let pieChartInstance = null, lineChartInstance = null;
+            function destroyCharts() { if (pieChartInstance) { pieChartInstance.destroy(); pieChartInstance = null; } if (lineChartInstance) { lineChartInstance.destroy(); lineChartInstance = null; } }
+            function updatePieChart() {
+                destroyCharts();
+                const txns = getTransactions().filter(t => t.type === 'expense' && isCurrentMonth(t.date));
+                const canvas = document.getElementById('pieChart');
+                if (!canvas) return;
+                if (txns.length === 0) {
+                    canvas.style.display = 'none';
+                    return;
+                }
+                canvas.style.display = 'block';
+                const catTotals = {};
+                txns.forEach(t => { const cat = t.category || 'Other'; catTotals[cat] = (catTotals[cat] || 0) + Number(t.amount || 0); });
+                const labels = Object.keys(catTotals);
+                const data = Object.values(catTotals);
+                pieChartInstance = new Chart(canvas.getContext('2d'), {
+                    type: 'doughnut',
+                    data: { labels, datasets: [{ data, backgroundColor: ['#ff4d6a','#ff8a65','#ffb74d','#81c784','#4fc3f7','#7986cb','#ba68c8','#e0e0e0'], borderColor: '#1a1a35', borderWidth: 3 }] },
+                    options: { responsive: true, cutout: '60%', plugins: { legend: { position: 'bottom', labels: { color: '#a8a8c0' } } } }
+                });
+            }
+            function updateLineChart() {
+                destroyCharts();
+                const trades = getTrades();
+                const canvas = document.getElementById('lineChart');
+                if (!canvas) return;
+                if (trades.length === 0) {
+                    canvas.style.display = 'none';
+                    return;
+                }
+                canvas.style.display = 'block';
+                const sorted = [...trades].sort((a,b) => new Date(a.date) - new Date(b.date));
+                let cum = 0;
+                const labels = [], data = [];
+                sorted.forEach((t,i) => { cum += calcTradePL(t); labels.push(`T${i+1}`); data.push(parseFloat(cum.toFixed(2))); });
+                lineChartInstance = new Chart(canvas.getContext('2d'), {
+                    type: 'line',
+                    data: { labels, datasets: [{ label: 'Cumulative P/L ($)', data, borderColor: cum >= 0 ? '#00e676' : '#ff4d6a', fill: true, tension: 0.35 }] },
+                    options: { responsive: true, scales: { x: { ticks: { color: '#70708a' } }, y: { ticks: { color: '#70708a', callback: v => '$'+v } } } }
+                });
+            }
+
+            // ========== UI REFRESH ==========
+            function refreshAll() {
+                refreshDashboard();
+                refreshFinanceTab();
+                refreshTradingTab();
+            }
+            function refreshDashboard() {
+                const txns = getTransactions();
+                const income = calcTotalIncome(txns);
+                const expenses = calcTotalExpenses(txns);
+                document.getElementById('totalBalance').textContent = formatIDR(income - expenses);
+                document.getElementById('totalExpenses').textContent = formatIDR(expenses);
+                const trades = getTrades();
+                const tradingPL = calcTotalTradingPL(trades);
+                document.getElementById('tradingPL').textContent = formatUSD(tradingPL);
+                document.getElementById('plCard').classList.toggle('negative', tradingPL < 0);
+                const dcaEntries = getDcaEntries();
+                const monthlyDca = calcMonthlyDcaTotal(dcaEntries);
+                const target = 100000;
+                const pct = Math.min((monthlyDca / target) * 100, 100);
+                document.getElementById('dcaCurrent').textContent = formatIDR(monthlyDca);
+                document.getElementById('dcaPercent').textContent = pct.toFixed(1) + '% Complete';
+                const bar = document.getElementById('dcaProgressBar');
+                bar.style.width = pct + '%';
+                bar.classList.toggle('complete', pct >= 100);
+                updatePieChart();
+                updateLineChart();
+            }
+            function refreshFinanceTab() {
+                const txns = getTransactions();
+                const tbody = document.getElementById('txnTableBody');
+                if (txns.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="5" class="empty-state">No transactions yet</td></tr>';
+                } else {
+                    const sorted = [...txns].sort((a,b) => new Date(b.date) - new Date(a.date));
+                    tbody.innerHTML = sorted.map(t => {
+                        const typeTag = t.type === 'income' ? '<span class="tag-income">Income</span>' : '<span class="tag-expense">Expense</span>';
+                        const amt = t.type === 'income' ? Number(t.amount) : -Number(t.amount);
+                        return `<tr>
+                            <td>${t.date||'—'}</td>
+                            <td>${typeTag}</td>
+                            <td>${t.category||'—'}</td>
+                            <td class="${amt >= 0 ? 'text-profit' : 'text-loss'}">${formatIDR(amt)}</td>
+                            <td><button class="btn btn-danger btn-sm" onclick="window._deleteTxn('${t.id}')">✕</button></td>
+                        </tr>`;
+                    }).join('');
+                }
+                const stats = calcDcaStats(getDcaEntries());
+                document.getElementById('avgPriceDisplay').textContent = formatIDR(stats.avgPrice);
+                document.getElementById('totalUnitsDisplay').textContent = stats.totalUnits.toFixed(4);
+                document.getElementById('totalInvestedDisplay').textContent = formatIDR(stats.totalInvested);
+            }
+            function refreshTradingTab() {
+                const trades = getTrades();
+                const tbody = document.getElementById('tradeTableBody');
+                if (trades.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="10" class="empty-state">No trades logged yet</td></tr>';
+                } else {
+                    const sorted = [...trades].sort((a,b) => new Date(b.date) - new Date(a.date));
+                    tbody.innerHTML = sorted.map(t => {
+                        const pl = calcTradePL(t);
+                        const plClass = pl >= 0 ? 'text-profit' : 'text-loss';
+                        const resultTag = pl > 0 ? '<span class="tag tag-buy">WIN</span>' : pl < 0 ? '<span class="tag tag-sell">LOSS</span>' : '<span class="tag">BE</span>';
+                        return `<tr>
+                            <td>${t.date||'—'}</td>
+                            <td>${t.pair||'—'}</td>
+                            <td>${t.type==='buy'?'<span class="tag tag-buy">Buy</span>':'<span class="tag tag-sell">Sell</span>'}</td>
+                            <td>$${parseFloat(t.entryPrice||0).toFixed(2)}</td>
+                            <td>$${parseFloat(t.exitPrice||0).toFixed(2)}</td>
+                            <td>${parseFloat(t.lot||0).toFixed(2)}</td>
+                            <td class="${plClass}">${formatUSD(pl)}</td>
+                            <td>${resultTag}</td>
+                            <td>${t.notes||'—'}</td>
+                            <td><button class="btn btn-danger btn-sm" onclick="window._deleteTrade('${t.id}')">✕</button></td>
+                        </tr>`;
+                    }).join('');
+                }
+                document.getElementById('statTotalTrades').textContent = trades.length;
+                document.getElementById('statWinRate').textContent = trades.length ? calcWinRate(trades) + '%' : '0%';
+                const rr = calcRiskReward(trades);
+                document.getElementById('statRR').textContent = rr !== null ? rr.toFixed(2) : 'N/A';
+                document.getElementById('statTotalPL').textContent = formatUSD(calcTotalTradingPL(trades));
+            }
+
+            // Delete handlers
+            window._deleteTxn = (id) => { if (confirm('Delete transaction?')) { deleteTransaction(id); refreshAll(); } };
+            window._deleteTrade = (id) => { if (confirm('Delete trade?')) { deleteTrade(id); refreshAll(); } };
+
+            // ========== TABS & FORMS ==========
+            function setupTabs() {
+                document.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                        btn.classList.add('active');
+                        document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+                        if (btn.dataset.tab === 'dashboard') setTimeout(() => { updatePieChart(); updateLineChart(); }, 150);
+                    });
+                });
+            }
+            function setupForms() {
+                const today = new Date().toISOString().split('T')[0];
+                document.getElementById('txnDate').value = today;
+                document.getElementById('dcaDate').value = today;
+                document.getElementById('tradeDate').value = today;
+
+                document.getElementById('btnAddTxn').addEventListener('click', () => {
+                    const type = document.getElementById('txnType').value;
+                    const amount = parseInt(document.getElementById('txnAmount').value, 10);
+                    const category = document.getElementById('txnCategory').value;
+                    const date = document.getElementById('txnDate').value;
+                    if (!amount || amount <= 0 || !date) return alert('Invalid input');
+                    addTransaction({ id: generateId(), type, amount, category, date });
+                    document.getElementById('txnAmount').value = '';
+                    refreshAll();
+                });
+                document.getElementById('btnAddDCA').addEventListener('click', () => {
+                    const price = parseFloat(document.getElementById('dcaPrice').value);
+                    const amount = parseFloat(document.getElementById('dcaAmount').value);
+                    const date = document.getElementById('dcaDate').value;
+                    if (!price || price <= 0 || !amount || amount <= 0 || !date) return alert('Invalid DCA entry');
+                    addDcaEntry({ id: generateId(), price, amount, date });
+                    document.getElementById('dcaPrice').value = '';
+                    document.getElementById('dcaAmount').value = '';
+                    refreshAll();
+                });
+                document.getElementById('btnAddTrade').addEventListener('click', () => {
+                    const pair = document.getElementById('tradePair').value.trim();
+                    const type = document.getElementById('tradeType').value;
+                    const entryPrice = parseFloat(document.getElementById('tradeEntry').value);
+                    const exitPrice = parseFloat(document.getElementById('tradeExit').value);
+                    const lot = parseFloat(document.getElementById('tradeLot').value);
+                    const notes = document.getElementById('tradeNotes').value.trim();
+                    const date = document.getElementById('tradeDate').value;
+                    if (!pair || !entryPrice || entryPrice <= 0 || !exitPrice || exitPrice <= 0 || !lot || lot <= 0 || !date) return alert('Invalid trade');
+                    addTrade({ id: generateId(), pair, type, entryPrice, exitPrice, lot, notes, date });
+                    document.getElementById('tradePair').value = '';
+                    document.getElementById('tradeEntry').value = '';
+                    document.getElementById('tradeExit').value = '';
+                    document.getElementById('tradeLot').value = '1';
+                    document.getElementById('tradeNotes').value = '';
+                    refreshAll();
+                });
+            }
+
+            // Init – langsung dashboard
+            function init() {
+                setupTabs();
+                setupForms();
+                refreshAll();
+            }
+            if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+            else init();
+
+            // PWA: Register service worker
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('sw.js').catch(console.error);
+            }
+        })();
     </script>
 </body>
 </html>
